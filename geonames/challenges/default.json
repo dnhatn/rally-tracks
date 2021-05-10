@@ -372,4 +372,62 @@
           }
         }
       ]
+    },
+    {
+      "name": "append-sorted-with-conflicts",
+      "description": "Indexes the whole document corpus using a setup that will lead to a larger indexing throughput than the default settings. Rally will produce duplicate ids in 25% of all documents (not configurable) so we can simulate a scenario with appends most of the time and some updates in between.",
+      "schedule": [
+        {
+          "operation": "delete-index"
+        },
+        {
+          "operation": {
+            "operation-type": "create-index",
+            "settings": {%- if index_settings is defined %} {{index_settings | tojson}} {%- else %} {
+              "index.refresh_interval": "30s",
+              "index.number_of_shards": {{number_of_shards | default(6)}},
+              "index.translog.flush_threshold_size": "4g",
+              "index.sort.field": ["country_code.raw", "admin1_code.raw"],
+              "index.sort.order": ["asc", "asc"]
+            }{%- endif %}
+          }
+        },
+        {
+          "name": "check-cluster-health",
+          "operation": {
+            "operation-type": "cluster-health",
+            "index": "geonames",
+            "request-params": {
+              "wait_for_status": "{{cluster_health | default('green')}}",
+              "wait_for_no_relocating_shards": "true"
+            },
+            "retry-until-success": true
+          }
+        },
+        {
+          "operation": "index-update",
+          "warmup-time-period": 45,
+          "clients": {{bulk_indexing_clients | default(8)}},
+          "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
+        },
+        {
+          "operation": {
+            "operation-type": "force-merge",
+            "request-timeout": 7200
+          }
+        },
+        {
+          "name": "wait-until-merges-finish",
+          "operation": {
+            "operation-type": "index-stats",
+            "index": "_all",
+            "condition": {
+              "path": "_all.total.merges.current",
+              "expected-value": 0
+            },
+            "retry-until-success": true,
+            "include-in-reporting": false
+          }
+        }
+      ]
     }
