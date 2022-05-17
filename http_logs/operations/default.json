@@ -344,4 +344,209 @@
         "field": "request.raw",
         "string": "GET image"
       }
+    },
+    {
+      "name": "ccs-default",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "match_all": {}
+        }
+      }
+    },
+    {
+      "name": "ccs-term",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "request-timeout": 7200,
+      "body": {
+        "query": {
+          "term": {
+            {%- if runtime_fields is defined %}
+              {# Runtime fields make a "path" instead of "request.raw" because that is what the canned example of grok and dissect typically do. #}
+              "path": {
+                "value": "/"
+              }
+            {%- else %}
+              "request.raw": {
+                "value": "GET / HTTP/1.0"
+              }
+            {%- endif %}
+          }
+        }
+      },
+      "detailed-results": true
+    },
+    {
+      "name": "ccs-range",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "range": {
+            "@timestamp": {
+              "gte": "now-{{'15-05-1998' | days_ago(now)}}d/d",
+              "lt": "now/d"
+            }
+          }
+        }
+      },
+      "detailed-results": true
+    },
+    {
+      "name": "ccs-200s-in-range",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": "1998-05-01T00:00:00Z",
+                    "lt": "1998-05-02T00:00:00Z"
+                  }
+                }
+              },
+              {
+                "match": {
+                  "status": "200"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "detailed-results": true
+    },
+    {
+      "name": "ccs-400s-in-range",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "range": {
+                  "@timestamp": {
+                    "gte": "1998-05-01T00:00:00Z",
+                    "lt": "1998-05-02T00:00:00Z"
+                  }
+                }
+              },
+              {
+                "match": {
+                  "status": "400"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "detailed-results": true
+    },
+    {
+      "name": "ccs-hourly_agg",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "size": 0,
+        "aggs": {
+          "by_hour": {
+            "date_histogram": {
+              "field": "@timestamp",
+              "calendar_interval": "hour"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ccs-desc_sort_timestamp",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "match_all": {}
+        },
+        "sort" : [
+          {"@timestamp" : "desc"}
+        ]
+      }
+    },
+    {
+      "name": "ccs-desc_sort_with_after_timestamp",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "track_total_hits": false,
+        "query": {
+          "match_all": {}
+        },
+        "sort" : [
+          {"@timestamp" : "desc"}
+        ],
+        "search_after": ["1998-06-10"]
+      }
+    },
+    {
+      "name": "ccs-asc_sort_timestamp",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "query": {
+          "match_all": {}
+        },
+        "sort" : [
+          {"@timestamp" : "asc"}
+        ]
+      }
+    },
+    {
+      "name": "ccs-asc_sort_with_after_timestamp",
+      "operation-type": "search",
+      {%- if disable_minimize_roundtrips is defined %}
+      "request-params": { "ccs_minimize_roundtrips": true},
+      {%- endif %}
+      "index": "logs-*,remote_cluster:logs-*",
+      "body": {
+        "track_total_hits": false,
+        "query": {
+          "match_all": {}
+        },
+        "sort" : [
+          {"@timestamp" : "asc"}
+        ],
+        "search_after": ["1998-06-10"]
+      }
     }
