@@ -349,7 +349,7 @@
       "name": "ccs-default",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -362,7 +362,7 @@
       "name": "ccs-term",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "request-timeout": 7200,
@@ -388,7 +388,7 @@
       "name": "ccs-range",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -407,7 +407,7 @@
       "name": "ccs-200s-in-range",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -437,7 +437,7 @@
       "name": "ccs-400s-in-range",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -467,7 +467,7 @@
       "name": "ccs-hourly_agg",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -486,7 +486,7 @@
       "name": "ccs-desc_sort_timestamp",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -502,7 +502,7 @@
       "name": "ccs-desc_sort_with_after_timestamp",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -520,7 +520,7 @@
       "name": "ccs-asc_sort_timestamp",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
@@ -536,7 +536,7 @@
       "name": "ccs-asc_sort_with_after_timestamp",
       "operation-type": "search",
       {%- if disable_minimize_roundtrips is defined %}
-      "request-params": { "ccs_minimize_roundtrips": "true"},
+      "request-params": { "ccs_minimize_roundtrips": "false"},
       {%- endif %}
       "index": "logs-*,remote_cluster:logs-*",
       "body": {
