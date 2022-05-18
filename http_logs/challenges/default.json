@@ -345,55 +345,55 @@
           "operation": "ccs-default",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 20
+          "target-throughput": 8
         },
         {
           "operation": "ccs-range",
           "warmup-iterations": 100,
           "iterations": 100,
-          "target-throughput": 25
+          "target-throughput": 6
         },
         {
           "operation": "ccs-200s-in-range",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 25
+          "target-throughput": 6
         },
         {
           "operation": "ccs-400s-in-range",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 50
+          "target-throughput": 12
         },
         {
           "operation": "ccs-hourly_agg",
           "warmup-iterations": 100,
           "iterations": 100,
-          "target-throughput": 0.2
+          "target-throughput": 0.05
         },
         {
           "operation": "ccs-desc_sort_timestamp",
           "warmup-iterations": 200,
           "iterations": 100,
-          "target-throughput": 2
+          "target-throughput": 0.5
         },
         {
           "operation": "ccs-asc_sort_timestamp",
           "warmup-iterations": 200,
           "iterations": 100,
-          "target-throughput": 20
+          "target-throughput": 4
         },
         {
           "operation": "ccs-desc_sort_with_after_timestamp",
           "warmup-iterations": 10,
           "iterations": 100,
-          "target-throughput": 1
+          "target-throughput": 0.25
         },
         {
           "operation": "ccs-asc_sort_with_after_timestamp",
           "warmup-iterations": 10,
           "iterations": 100,
-          "target-throughput": 0.5
+          "target-throughput": 0.12
         }
       ]
     }
