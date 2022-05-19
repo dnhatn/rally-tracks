@@ -345,25 +345,25 @@
           "operation": "ccs-default",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 4
+          "target-throughput": 3
         },
         {
           "operation": "ccs-range",
           "warmup-iterations": 100,
           "iterations": 100,
-          "target-throughput": 5
+          "target-throughput": 3
         },
         {
           "operation": "ccs-200s-in-range",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 5
+          "target-throughput": 3
         },
         {
           "operation": "ccs-400s-in-range",
           "warmup-iterations": 500,
           "iterations": 100,
-          "target-throughput": 10
+          "target-throughput": 2.5
         },
         {
           "operation": "ccs-hourly_agg",
@@ -381,7 +381,7 @@
           "operation": "ccs-asc_sort_timestamp",
           "warmup-iterations": 200,
           "iterations": 100,
-          "target-throughput": 4
+          "target-throughput": 2.2
         },
         {
           "operation": "ccs-desc_sort_with_after_timestamp",
