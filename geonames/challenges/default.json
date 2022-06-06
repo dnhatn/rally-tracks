@@ -35,49 +35,6 @@
           "operation": "refresh"
         },
         {
-          "operation": {
-            "operation-type": "force-merge",
-            "request-timeout": 7200{%- if max_num_segments is defined %},
-            "max-num-segments": {{max_num_segments}}
-             {%- endif %}
-          }
-        },
-        {
-          "name": "refresh-after-force-merge",
-          "operation": "refresh"
-        },
-        {
-          "name": "wait-until-merges-finish",
-          "operation": {
-            "operation-type": "index-stats",
-            "index": "_all",
-            "condition": {
-              "path": "_all.total.merges.current",
-              "expected-value": 0
-            },
-            "retry-until-success": true,
-            "include-in-reporting": false
-          }
-        },
-        {
-          "operation": "index-stats",
-          "warmup-iterations": 500,
-          "iterations": 1000,
-          "target-throughput": 90
-        },
-        {
-          "operation": "node-stats",
-          "warmup-iterations": 100,
-          "iterations": 1000,
-          "target-throughput": 90
-        },
-        {
-          "operation": "default",
-          "warmup-iterations": 500,
-          "iterations": 1000,
-          "target-throughput": 50
-        },
-        {
           "operation": "term",
           "warmup-iterations": 500,
           "iterations": 1000,
@@ -90,125 +47,32 @@
           "target-throughput": 110
         },
         {
-          "operation": "country_agg_uncached",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 3
+          "name": "term8",
+          "operation": "term",
+          "clients": 8,
+          "warmup-iterations": 500,
+          "iterations": 1000
         },
         {
-          "operation": "country_agg_cached",
-          "warmup-iterations": 1000,
-          "iterations": 1000,
-          "target-throughput": 100
+          "name": "phrase8",
+          "operation": "phrase",
+          "clients": 8,
+          "warmup-iterations": 500,
+          "iterations": 1000
         },
         {
-          "operation": "scroll",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "#COMMENT": "Throughput is considered per request. So we issue one scroll request per second which will retrieve 25 pages",
-          "target-throughput": 0.8
+          "name": "term16",
+          "operation": "term",
+          "clients": 16,
+          "warmup-iterations": 500,
+          "iterations": 1000
         },
         {
-          "operation": "expression",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "painless_static",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.4
-        },
-        {
-          "operation": "painless_dynamic",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.4
-        },
-        {
-          "operation": "decay_geo_gauss_function_score",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1
-        },
-        {
-          "operation": "decay_geo_gauss_script_score",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1
-        },
-        {
-          "operation": "field_value_function_score",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "field_value_script_score",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "large_terms",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.1
-        },
-        {
-          "operation": "large_filtered_terms",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.1
-        },
-        {
-          "operation": "large_prohibited_terms",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.1
-        },
-        {
-          "operation": "desc_sort_population",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "asc_sort_population",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "asc_sort_with_after_population",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 1.5
-        },
-        {
-          "operation": "desc_sort_geonameid",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 6
-        },
-        {
-          "operation": "desc_sort_with_after_geonameid",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 6
-        },
-        {
-          "operation": "asc_sort_geonameid",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 6
-        },
-        {
-          "operation": "asc_sort_with_after_geonameid",
-          "warmup-iterations": 200,
-          "iterations": 100,
-          "target-throughput": 6
+          "name": "phrase16",
+          "operation": "phrase",
+          "clients": 16,
+          "warmup-iterations": 500,
+          "iterations": 1000
         }
       ]
     },
