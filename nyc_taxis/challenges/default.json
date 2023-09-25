@@ -954,7 +954,7 @@
             "retry-until-success": true
           },
           "tags": ["setup"]
-        }
+        },
         {
           "operation": "avg_passenger_count_esql_shard_partitioning",
           "clients": 1,
