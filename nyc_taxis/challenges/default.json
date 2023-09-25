@@ -938,6 +938,152 @@
       ]
     },
     {
+      "name": "esql-only",
+      "description": "Benchmark only ESQL queries with an existing nyc_taxis",
+      "default": false,
+      "schedule": [
+        {
+          "name": "check-cluster-health",
+          "operation": {
+            "operation-type": "cluster-health",
+            "index": "nyc_taxis",
+            "request-params": {
+              "wait_for_status": "{{cluster_health | default('green')}}",
+              "wait_for_no_relocating_shards": "true"
+            },
+            "retry-until-success": true
+          },
+          "tags": ["setup"]
+        }
+        {
+          "operation": "avg_passenger_count_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_passenger_count_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_passenger_count_filtered_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_passenger_count_filtered_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_tip_percent_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_tip_percent_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_amount_group_by_integer_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_amount_group_by_integer_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_amount_group_by_keyword_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "avg_amount_group_by_keyword_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "composite_terms-keyword",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "multi_terms-keyword_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "multi_terms-keyword_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "sort_by_ts_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "sort_by_ts_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "date_histogram_calendar_interval_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "date_histogram_calendar_interval_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },  
+        {
+          "operation": "date_histogram_fixed_interval_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "date_histogram_fixed_interval_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "date_histogram_fixed_interval_with_metrics_esql_shard_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        },
+        {
+          "operation": "date_histogram_fixed_interval_with_metrics_esql_doc_partitioning",
+          "clients": 1,
+          "warmup-iterations": 10,
+          "iterations": 50
+        }
+      ]
+    },
+    {
       "name": "update-aggs-only",
       "description": "Bulk indexes documents with conflicts and checks the performance of some aggregations",
       "default": false,
